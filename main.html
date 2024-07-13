@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Analyzer, Checker, and Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Password Analyzer, Checker, and Generator</h1>
+        <div class="input-group">
+            <label for="passwordInput">Enter Password:</label>
+            <input type="password" id="passwordInput" placeholder="Enter your password">
+        </div>
+        <div class="button-group">
+            <button id="analyzeButton">Analyze</button>
+            <button id="checkButton">Check</button>
+        </div>
+        <p id="resultText"></p>
+        <div class="input-group">
+            <label for="generatedPassword">Generated Password:</label>
+            <input type="text" id="generatedPassword" readonly placeholder="Generated password will appear here">
+        </div>
+        <button id="generateButton" class="generate-btn">Generate</button>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
