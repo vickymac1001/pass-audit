@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: hsl(180, 69%, 85%);
         }
         .container {
             margin-top: 50px;
@@ -27,15 +27,32 @@
             padding: 10px;
             border: 1px solid #ced4da;
             border-radius: 4px;
-            background-color: #e9ecef;
+            background-color: #0ee8f0;
+        }
+        .analysis-section {
+            background-image: url('https://www.your-image-url.com/background.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .analysis-section h3 {
+            color: #ffffff;
+        }
+        .analysis-section .btn {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <h3 class="card-title text-center">Password Analyzer, Checker, and Generator</h3>
+        <div class="card analysis-section">
+            <h2 class="card-title text-center">Pass Audit</h2>
+            <h4 class="card-title text-center">Analyzer, Checker & Generator</h4>
             <div class="form-group">
+                &nbsp;
                 <label for="password">Enter Password:</label>
                 <input type="password" id="password" class="form-control">
             </div>
