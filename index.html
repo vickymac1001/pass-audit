@@ -4,27 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Analyzer, Checker, and Generator</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .generated-password {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Password Analyzer, Checker, and Generator</h1>
-        <div class="input-group">
-            <label for="passwordInput">Enter Password:</label>
-            <input type="password" id="passwordInput" placeholder="Enter your password">
+        <div class="card">
+            <h3 class="card-title text-center">Password Analyzer, Checker, and Generator</h3>
+            <div class="form-group">
+                <label for="password">Enter Password:</label>
+                <input type="password" id="password" class="form-control">
+            </div>
+            <button id="analyzeButton" class="btn btn-primary btn-block">Analyze</button>
+            <button id="checkButton" class="btn btn-secondary btn-block">Check</button>
+            <div class="result alert alert-info mt-3" id="result" role="alert" style="display:none;"></div>
+            <div class="form-group generated-password" id="generatedPasswordContainer" style="display:none;">
+                <label for="generatedPassword">Generated Password:</label>
+                <input type="text" id="generatedPassword" class="form-control" readonly>
+            </div>
+            <button id="generateButton" class="btn btn-success btn-block">Generate</button>
         </div>
-        <div class="button-group">
-            <button id="analyzeButton">Analyze</button>
-            <button id="checkButton">Check</button>
-        </div>
-        <p id="resultText"></p>
-        <div class="input-group">
-            <label for="generatedPassword">Generated Password:</label>
-            <input type="text" id="generatedPassword" readonly placeholder="Generated password will appear here">
-        </div>
-        <button id="generateButton" class="generate-btn">Generate</button>
     </div>
-    <script src="scripts.js"></script>
+
+    <script>
+        document.getElementById('analyzeButton').addEventListener('click', function() {
+            var password = document.getElementById('password').value;
+            var result = analyzePassword(password);
+            var resultElement = document.getElementById('result');
+            resultElement.innerText = result;
+            resultElement.style.display = 'block';
+        });
+
+        document.getElementById('checkButton').addEventListener('click', function() {
+            var password = document.getElementById('password').value;
+            var result = checkPassword(password);
+            var resultElement = document.getElementById('result');
+            resultElement.innerText = result;
+            resultElement.style.display = 'block';
+        });
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+            var generatedPassword = generatePassword();
+            var generatedPasswordField = document.getElementById('generatedPassword');
+            generatedPasswordField.value = generatedPassword;
+            document.getElementById('generatedPasswordContainer').style.display = 'block';
+        });
+
+        function analyzePassword(password) {
+            var length = password.length;
+            var hasUpper = /[A-Z]/.test(password);
+            var hasLower = /[a-z]/.test(password);
+            var hasDigit = /\d/.test(password);
+            var hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            var strength = "Weak";
+            if (length >= 8 && hasUpper && hasLower && hasDigit && hasSpecial) {
+                strength = "Strong";
+            } else if (length >= 6 && ((hasUpper && hasLower) || (hasDigit && (hasUpper || hasLower)))) {
+                strength = "Medium";
+            }
+
+            return "Password Strength: " + strength;
+        }
+
+        function checkPassword(password) {
+            var minLength = 8;
+            var hasUpper = /[A-Z]/.test(password);
+            var hasLower = /[a-z]/.test(password);
+            var hasDigit = /\d/.test(password);
+            var hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            if (password.length >= minLength && hasUpper && hasLower && hasDigit && hasSpecial) {
+                return "Password is valid.";
+            } else {
+                return "Password is invalid. It should be at least 8 characters long and contain upper case letters, lower case letters, digits, and special characters.";
+            }
+        }
+
+        function generatePassword() {
+            var length = 12;
+            var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+            var digits = "0123456789";
+            var specialChars = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
+            var allChars = upperCase + lowerCase + digits + specialChars;
+
+            var password = [];
+            password.push(upperCase[Math.floor(Math.random() * upperCase.length)]);
+            password.push(lowerCase[Math.floor(Math.random() * lowerCase.length)]);
+            password.push(digits[Math.floor(Math.random() * digits.length)]);
+            password.push(specialChars[Math.floor(Math.random() * specialChars.length)]);
+
+            for (var i = 4; i < length; i++) {
+                password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+            }
+
+            return password.join('');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
